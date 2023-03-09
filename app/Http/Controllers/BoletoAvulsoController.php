@@ -41,14 +41,23 @@ class BoletoAvulsoController extends Controller
 
     }
 
-    public function buscarEmpresa(Request $request) {
-        $empresa = Empresa::where('cpf_cnpj', $request->cpf_cnpj)->first();
+    public function buscarEmpresaCPFCNPJ(Request $request) {
+        $empresaCPFCNPJ = Empresa::where('cpf_cnpj', $request->cpf_cnpj)->first();
+        if($empresaCPFCNPJ){
+            $endereco = $empresaCPFCNPJ->endereco;
+            $telefone = $empresaCPFCNPJ->telefone;
+            return json_encode([$empresaCPFCNPJ, $endereco, $telefone]);
+        }
+        return json_encode('inexistente');
+    }
+
+    public function buscarEmpresaEmail(Request $request) {
+        $empresa = User::where('email', $request->email)->first();
         if($empresa){
             $endereco = $empresa->endereco;
             $telefone = $empresa->telefone;
             return json_encode([$empresa, $endereco, $telefone]);
         }
-        
         return json_encode('inexistente');
     }
 

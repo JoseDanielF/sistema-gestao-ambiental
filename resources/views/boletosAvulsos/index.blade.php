@@ -48,8 +48,12 @@
                                 <div class="form-row">
                                     <div id="email_empresa_div" style="display: none" class="col-md-8 form-group">
                                         <label for="email_empresa">{{ __('E-mail empresa') }}<span style="color: red; font-weight: bold;">*</span></label>
-                                        
                                         <input id="email_empresa" class="form-control @error('email_empresa') is-invalid @enderror" type="text" name="email_empresa" value="{{old('email_empresa')}}" autocomplete="email_empresa">
+                                        <div class="col-md-4 mt-4">
+                                            <button type="button" class="btn btn-primary" style="height: 50px;" onClick="preencherEmpresaExistenteENaoCadastrada()">
+                                                Verificar
+                                            </button>
+                                        </div>   
                                         @error('email_empresa')
                                         <div id="validationServer03Feedback" class="invalid-feedback">
                                             {{ $message }}
@@ -273,6 +277,26 @@
                     </div>
                     <div class="modal-body">
                         Empresa não cadastrada no sistema! É necessario o preenchimento dos dados para 
+                        geração do boleto.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-color-dafault" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="aviso-modal-empresa-existe" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #dc3545;">
+                        <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Aviso</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        Empresa já cadastrada no sistema! É necessario o preenchimento correto dos dados para 
                         geração do boleto.
                     </div>
                     <div class="modal-footer">
@@ -507,6 +531,10 @@
                 $('#aviso-modal-empresa-nao-existe').modal('show');
             }
 
+            function exibirModalEmpresaExistente() {
+                $('#aviso-modal-empresa-existe').modal('show');
+            }
+
             function exibirModal() {
                 $('#btn-modal-aviso').click();
             }
@@ -567,7 +595,7 @@
                 });
 
                 $.ajax({
-                url: '{{route('boletosAvulsos.buscarEmpresa')}}', 
+                url: '{{route('boletosAvulsos.buscarEmpresaCPFCNPJ')}}', 
                 type: 'POST',
                 dataType: 'json',
                 data: {
@@ -588,6 +616,33 @@
                         $('#estado_da_empresa').val(data[1]['estado']);
                         $('#complemento_da_empresa').val(data[1]['complemento']);
                         $('#celular_da_empresa').val(data[2]['numero']);
+                    }
+		        }
+	            });
+            }
+
+            function preencherEmpresaExistenteENaoCadastrada() {
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                url: '{{route('boletosAvulsos.buscarEmpresaEmail')}}', 
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                        'email': $('#email_empresa').val()
+                },
+                success: function (data) {
+                    if(data == 'inexistente'){
+                        exibirModalEmpresaInexistente();
+                        emailHidden();
+                    }else {
+                        exibirModalEmpresaExistente();
+                        emailEnable();
                     }
 		        }
 	            });

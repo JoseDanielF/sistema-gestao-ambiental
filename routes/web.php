@@ -176,7 +176,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/boletosAvulsos', [BoletoAvulsoController::class, 'index'])->name('boletosAvulsos.index');
     Route::post('/boletosAvulsos', [BoletoAvulsoController::class, 'store'])->name('boletosAvulsos.store');
-    Route::post('/consultaEmpresa', [BoletoAvulsoController::class, 'buscarEmpresa'])->name('boletosAvulsos.buscarEmpresa');
+    Route::post('/consultaEmpresa', [BoletoAvulsoController::class, 'buscarEmpresaCPFCNPJ'])->name('boletosAvulsos.buscarEmpresaCPFCNPJ');
+    Route::post('/consultaEmpresaEmail', [BoletoAvulsoController::class, 'buscarEmpresaEmail'])->name('boletosAvulsos.buscarEmpresaEmail');
+
 });
 
 Route::get('/denuncias/create', [DenunciaController::class, 'create'])->name('denuncias.create');
