@@ -103,8 +103,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/relatorio/store', [RelatorioController::class, 'store'])->name('relatorios.store');
     Route::get('/relatorio/{relatorio}/edit', [RelatorioController::class, 'edit'])->name('relatorios.edit');
     Route::put('/relatorio/{relatorio}/update', [RelatorioController::class, 'update'])->name('relatorios.update');
+    Route::get("/relatorios/{relatorio_id}/arquivo", [RelatorioController::class, 'downloadArquivo'])->name('relatorios.downloadArquivo');
+    Route::get("/relatorios/{relatorio_id}/imagens", [RelatorioController::class, 'downloadImagem'])->name('relatorios.downloadImagem');
     Route::get('/relatorio/{relatorio}/show', [RelatorioController::class, 'show'])->name('relatorios.show');
+    
     Route::post('/relatorio/{relatorio}/resultado', [RelatorioController::class, 'resultado'])->name('relatorios.resultado');
+
 
     Route::resource('empresas.notificacoes', NotificacaoController::class)
         ->shallow()
@@ -175,6 +179,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::delete('/noticias/{noticia}/destroy', [NoticiaController::class, 'destroy'])->name('noticias.destroy');
 
     Route::get('/boletosAvulsos', [BoletoAvulsoController::class, 'index'])->name('boletosAvulsos.index');
+    Route::get('/boletosAvulsos/baixar-relatorio', [BoletoAvulsoController::class, 'gerarRelatorioBoletos'])->name('gerar.pdf.boletosAvulsos');
+    Route::get('/boletosAvulsos/{filtro}/listar', [BoletoAvulsoController::class, 'listar_boletos'])->name('boletosAvulsos.listar_boletos');
     Route::post('/boletosAvulsos', [BoletoAvulsoController::class, 'store'])->name('boletosAvulsos.store');
     Route::post('/consultaEmpresa', [BoletoAvulsoController::class, 'buscarEmpresaCPFCNPJ'])->name('boletosAvulsos.buscarEmpresaCPFCNPJ');
     Route::post('/consultaEmpresaEmail', [BoletoAvulsoController::class, 'buscarEmpresaEmail'])->name('boletosAvulsos.buscarEmpresaEmail');

@@ -220,8 +220,10 @@
                                             @if($visita->denuncia == null)
                                                 @if ($visita->data_realizada != null)
                                                     <td>{{date('d/m/Y', strtotime($visita->data_realizada))}}</td>
-                                                @elseif($visita->requerimento->empresa->notificacoes->where('empresa_id', $visita->requerimento->empresa->id) != '[]')
-                                                    <td>{{__('Notificado')}}</td>
+                                                @elseif(isset($visita) && isset($visita->requerimento->empresa))
+                                                    @if($visita->requerimento->empresa->notificacoes->where('empresa_id', $visita->requerimento->empresa->id) != '[]')
+                                                        <td>{{__('Notificado')}}</td>
+                                                    @endif
                                                 @else
                                                     <td>{{__('Aguardando visita')}}</td>
                                                 @endif
@@ -586,6 +588,15 @@
                                     </div>
                                 @endforeach
                             </div>
+                            @if ($denuncia->arquivo)
+                            <div class="form-row">
+                                <label class="col-md-12">{{__('Arquivo anexado:')}}</label>
+                                <a class="w-100 btn btn-success btn-enviar-doc" href="{{route('denuncias.arquivo', $denuncia->id)}}">
+                                    <img class="icon-licenciamento" src="{{asset('img/fluent_document-arrow-down-20-regular.svg')}}" alt="Icone de download do documento" title="Download documento" width="20px;">
+                                    Baixar arquivo  enviado
+                                </a>
+                            </div>
+                        @endif
                         </div>
                     </div>
                 </div>
