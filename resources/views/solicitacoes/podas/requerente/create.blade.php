@@ -232,7 +232,8 @@
                                 <div class="col-md-6 form-group"></div>
                                 <div class="col-md-6 form-group">
                                     <button type="submit" class="submeterFormBotao btn btn-success btn-color-dafault"
-                                        style="width: 100%;">Confirmar</button>
+                                        style="width: 100%;" @if(Auth::user()->email == "solicitacao@presencial.com")
+                                        data-toggle="modal" data-target="#modalProtocoloPresencial"@endif>Confirmar</button>
                                 </div>
                             </div>
                         </form>
@@ -242,7 +243,29 @@
         </div>
     </div>
 
-
+    <div class="modal fade" id="modalProtocoloPresencial" role="dialog" data-backdrop="static" data-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #4A7836;">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Aviso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="word-break: break-all">
+                <p class="">Apenas será visualizado solicitações presenciais sem login no sistema se o usuário obter o número de protocolo da solicitação.</p>
+                
+                <br>
+                <br>
+                Protocolo:<strong>{{ session('protocolo') }}</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+    </div>
 
     <div class="modal fade" id="modalProtocolo" role="dialog" data-backdrop="static" data-keyboard="false"
         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -672,7 +695,8 @@
                                 <div class="col-md-6 form-group"></div>
                                 <div class="col-md-6 form-group">
                                     <button type="submit" class="submeterFormBotao btn btn-success btn-color-dafault"
-                                        style="width: 100%;">Confirmar</button>
+                                        style="width: 100%;" @if(Auth::user()->email == "solicitacao@presencial.com")
+                                        data-toggle="modal" data-target="#modalProtocoloPresencial"@endif>Confirmar</button>
                                 </div>
                             </div>
                         </form>
@@ -682,7 +706,29 @@
         </div>
     </div>
 
-
+    <div class="modal fade" id="modalProtocoloPresencial" role="dialog" data-backdrop="static" data-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #4A7836;">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Aviso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="word-break: break-all">
+                Apenas será visualizado solicitações presenciais sem login no sistema se o usuário obter o número de protocolo da solicitação.
+                <br>
+                <br>
+                Protocolo:
+                <strong>{{ session('protocolo') }}</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+    </div>
 
     <div class="modal fade" id="modalProtocolo" role="dialog" data-backdrop="static" data-keyboard="false"
         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
