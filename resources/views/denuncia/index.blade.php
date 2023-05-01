@@ -18,7 +18,7 @@
                     @endif
                 </div>
 
-                <form action="{{route('denuncias.index', 'pendentes')}}" method="get">
+                <form action="{{route('denuncias.index', $filtro)}}" method="get">
                     @csrf
                     <div class="form-row mb-3">
                         <div class="col-md-7">
@@ -53,7 +53,7 @@
                         <div class="tab-content tab-content-custom" id="myTabContent">
                             <div class="tab-pane fade show active" id="denuncias-pendentes" role="tabpanel" aria-labelledby="denuncias-pendentes-tab">
                                 <div class="table-responsive">
-                                <table class="table mytable">
+                                <table class="table mytable" id="denucias-table">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -115,7 +115,7 @@
                             </div>
                             {{--<div class="tab-pane fade" id="denuncias-aprovadas" role="tabpanel" aria-labelledby="denuncias-aprovadas-tab">
                                 <div class="table-responsive">
-                                <table class="table mytable">
+                                <table class="table mytable" id="denucias-table">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>

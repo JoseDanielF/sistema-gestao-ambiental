@@ -27,7 +27,7 @@
                     @endif
                 </div>
 
-                <form action="{{route('podas.index', 'pendentes')}}" method="get">
+                <form action="{{route('podas.index', '$filtro')}}" method="get">
                     @csrf
                     <div class="form-row mb-3">
                         <div class="col-md-7">
@@ -74,7 +74,7 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="solicitacoes-pendentes" role="tabpanel" aria-labelledby="solicitacoes-pendentes-tab">
                                 <div class="table-responsive">
-                                <table class="table mytable">
+                                <table class="table mytable" id="podas-table">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>

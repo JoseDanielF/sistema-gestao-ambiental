@@ -43,17 +43,13 @@
                         <a class="nav-link @if($filtragem == 'vencidos') active @endif" id="boletos-arquivadas-tab"
                             type="button" role="tab" @if($filtragem == 'vencidos') aria-selected="true" @endif href="{{route('boletosAvulsos.listar_boletos', 'vencidos')}}">Vencidos</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if($filtragem == 'cancelados') active @endif" id="boletos-cancelados-tab"
-                            type="button" role="tab" @if($filtragem == 'cancelados') aria-selected="true" @endif href="{{route('boletosAvulsos.listar_boletos', 'cancelados')}}">Cancelados</a>
-                    </li>
                 </ul>
                 <div class="card" style="width: 100%;">
                     <div class="card-body">
                         <div class="tab-content tab-content-custom" id="myTabContent">
                             <div class="tab-pane fade show active" id="boletos-pendentes" role="tabpanel" aria-labelledby="boletos-pendentes-tab">
                                 <div class="table-responsive">
-                                <table class="table mytable">
+                                <table class="table mytable" id="boletos-avulsos_table">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -78,7 +74,7 @@
                                 </div>
                                 @if($pagamentos->first() == null)
                                     <div class="col-md-12 text-center" style="font-size: 18px;">
-                                        Nenhum boleto @switch($filtragem) @case('pendentes')pendente @break @case('pagos')pago @break @case('vencidos')vencido @break @case('cancelados')cancelado @break @endswitch
+                                        Nenhum boleto @switch($filtragem) @case('pendentes')pendente @break @case('pagos')pago @break @case('vencidos')vencido @break @endswitch
                                     </div>
                                 @endif
                             </div>

@@ -27,18 +27,6 @@
                     @endcan
                 </div>
 
-                <form action="{{route('requerimentos.index', 'atuais')}}" method="get">
-                    @csrf
-                    <div class="form-row mb-3">
-                        <div class="col-md-7">
-                            <input type="text" class="form-control w-100" name="buscar" placeholder="Digite o nome da Empresa" value="{{ $busca }}">
-                        </div>
-                        <div class="col-md-3">
-                            <button type="submit" class="btn" style="background-color: #00883D; color: white;">Buscar</button>
-                        </div>
-                    </div>
-                </form>
-
                 <div div class="form-row">
                     @if(session('success'))
                         <div class="col-md-12" style="margin-top: 5px;">
@@ -55,6 +43,21 @@
                         </div>
                     @endif
                 </div>
+                
+                @cannot('isRequerente', \App\Models\User::class)
+                <form action="{{route('requerimentos.index', $filtro )}}" method="get">
+                    @csrf
+                    <div class="form-row mb-3">
+                        <div class="col-md-7">
+                            <input type="text" class="form-control w-100" name="buscar" placeholder="Digite o nome da Empresa" value="{{ $busca }}">
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn" style="background-color: #00883D; color: white;">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+                @endcannot
+
                 @can('isSecretario', \App\Models\User::class)
                     <ul class="nav nav-tabs nav-tab-custom" id="myTab" role="tablist">
                         <li class="nav-item">
@@ -75,7 +78,7 @@
                             <div class="tab-content tab-content-custom" id="myTabContent">
                                 <div class="tab-pane fade show active" id="requerimnetos-atuais" role="tabpanel" aria-labelledby="requerimnetos-atuais-tab">
                                     <div class="table-responsive">
-                                    <table class="table mytable">
+                                    <table class="table mytable" id="requerimento_table">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -1236,46 +1239,6 @@
                     }
                 });
             }
-            // Chart.register(ChartDataLabels);
-            //const dados = @ json($data);
-
-            // const data = {
-            //     labels: Object.keys(dados),
-            //     datasets: [{
-            //         data: Object.values(dados),
-            //         backgroundColor: ['#273746','#F78259', '#581845', '#C70039 ', '#293462', '#1CD6CE', '#D61C4E', '#FEDB39', '#FF5733'],
-            //         hoverOffset: 0,
-            //     }]
-            // };
-            // const options = {
-            //     responsive: false,
-            //     plugins: {
-            //         title: {
-            //             display: true,
-            //             text: 'Requerimentos por status',
-            //         },
-            //         legend: {
-            //             display: true,
-            //             labels: {
-            //                 color: 'black',
-            //                 pointStyle: 'rectRounded',
-            //                 usePointStyle: true,
-            //             }
-            //         },
-            //         datalabels: {
-            //             color: 'white'
-            //         }
-            //     }
-            // };
-            // const config = {
-            //     type: 'pie',
-            //     data: data,
-            //     options: options,
-            // };
-            // const myChart = new Chart(
-            //     document.getElementById('myChart'),
-            //     config
-            // );
         </script>
     @endpush
 @endsection

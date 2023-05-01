@@ -18,18 +18,6 @@
                     @endif
                 </div>
 
-                <form action="{{route('boletos.index', 'pendentes')}}" method="get">
-                    @csrf
-                    <div class="form-row mb-3">
-                        <div class="col-md-7">
-                            <input type="text" class="form-control w-100" name="buscar" placeholder="Digite o nome da Empresa" value="{{ $busca }}">
-                        </div>
-                        <div class="col-md-3">
-                            <button type="submit" class="btn" style="background-color: #00883D; color: white;">Buscar</button>
-                        </div>
-                    </div>
-                </form>
-
                 <ul class="nav nav-tabs nav-tab-custom" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link @if($filtragem == 'pendentes') active @endif" id="boletos-pendentes-tab"
@@ -48,12 +36,25 @@
                             type="button" role="tab" @if($filtragem == 'cancelados') aria-selected="true" @endif href="{{route('boletos.index', 'cancelados')}}">Cancelados</a>
                     </li>
                 </ul>
+
+                <form action="{{route('boletos.index', $filtragem )}}" method="get">
+                    @csrf
+                    <div class="form-row mb-3 mt-3">
+                        <div class="col-md-7">
+                            <input type="text" class="form-control w-100" name="buscar" placeholder="Digite o nome da Empresa" value="{{ $busca }}">
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn" style="background-color: #00883D; color: white;">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+
                 <div class="card" style="width: 100%;">
                     <div class="card-body">
                         <div class="tab-content tab-content-custom" id="myTabContent">
                             <div class="tab-pane fade show active" id="boletos-pendentes" role="tabpanel" aria-labelledby="boletos-pendentes-tab">
                                 <div class="table-responsive">
-                                <table class="table mytable">
+                                <table class="table mytable" id="boletos_table">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>

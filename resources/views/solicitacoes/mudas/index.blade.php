@@ -18,11 +18,11 @@
                     @endif
                 </div>
 
-                <form action="{{route('mudas.index', 'pendentes')}}" method="get">
+                <form action="{{route('mudas.index', $filtro)}}" method="get">
                     @csrf
                     <div class="form-row mb-3">
                         <div class="col-md-7">
-                            <input type="text" class="form-control w-100" name="buscar" placeholder="Digite o nome do requerente" value="{{ $busca }}">
+                            <input type="text" class="form-control w-100" name="buscar" placeholder="Digite o nome do requerente/endereço" value="{{ $busca }}">
                         </div>
                         <div class="col-md-3">
                             <button type="submit" class="btn" style="background-color: #00883D; color: white;">Buscar</button>
@@ -49,7 +49,7 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="solicitacoes-pendentes" role="tabpanel" aria-labelledby="solicitacoes-pendentes-tab">
                                 <div class="table-responsive">
-                                <table class="table mytable">
+                                <table class="table mytable" id="mudas-table">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -83,7 +83,7 @@
                             </div>
                             {{--<div class="tab-pane fade" id="solicitacoes-aprovadas" role="tabpanel" aria-labelledby="solicitacoes-aprovadas-tab">
                                 <div class="table-responsive">
-                                <table class="table mytable">
+                                <table class="table mytable" id="mudas-table">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -181,4 +181,6 @@
         </div>
     </div>
     @endsection
+    @push ('scripts')
+    @endpush
 </x-app-layout>

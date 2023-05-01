@@ -121,11 +121,10 @@
                         @endif
                     </div>
                 </div>
-            </div>
-
-            
+            </div> 
         </div>
-        <form action="{{route('visitas.index', ['filtro' => 'requerimento', 'ordenacao' => 'data_marcada', 'ordem' => 'DESC'])}}" method="get">
+        
+         <form action="{{route('visitas.index', ['filtro' => 'requerimento', 'ordenacao' => 'data_marcada', 'ordem' => 'DESC'])}}" method="get">
                 @csrf
                 <div class="form-row mb-3">
                     <div class="col-md-7">
@@ -136,6 +135,7 @@
                     </div>
                 </div>
         </form>
+        
         <div class="form-row justify-content-center">
             <div class="col-md-9">
                 <ul class="nav nav-tabs nav-tab-custom" id="myTab" role="tablist">
@@ -179,7 +179,7 @@
                             @endif
                         </div>
                         <div class="table-responsive">
-                        <table class="table">
+                        <table class="table" id="programacao-table">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>

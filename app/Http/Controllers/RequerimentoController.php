@@ -80,11 +80,6 @@ class RequerimentoController extends Controller
             $requerimentos = Requerimento::whereIn('empresa_id', $empresas)->paginate(20);
         }
 
-        /*$data = Requerimento::where('status', '!=', Requerimento::STATUS_ENUM['cancelada'])
-            ->get()
-            ->groupBy('status_string')
-            ->map->count();*/
-
         return view('requerimento.index', compact('requerimentos', 'tipos', 'filtro', 'busca'));
     }
 

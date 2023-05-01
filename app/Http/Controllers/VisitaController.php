@@ -88,8 +88,10 @@ class VisitaController extends Controller
         if($busca != null) {
             $empresas = Empresa::where('nome', 'ilike', '%'. $busca .'%')->get();
             $empresas = $empresas->pluck('id');
+
             $requerimentos = Requerimento::whereIn('empresa_id', $empresas);
             $requerimentos = $requerimentos->pluck('id');
+
             $visitas = Visita::whereIn('requerimento_id', $requerimentos)->paginate(20);
         }
 
